@@ -78,7 +78,7 @@ function Login() {
                 {...form.getInputProps("password")}
               />
               <Group position="right" mt="xl">
-                <Button type="submit">
+                <Button type="submit" radius={3}>
                   {isLoading ? (
                     <Loader color="white" variant="dots" />
                   ) : (

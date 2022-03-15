@@ -10,7 +10,7 @@ import {
   Text,
   Center,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = z.object({
   name: z.string().min(2, { message: "Name should have at least 2 letters" }),
@@ -35,6 +35,8 @@ const SignUp = () => {
     console.log(values);
     setLoading(true);
   };
+
+  const history = useNavigate();
 
   return (
     <>
@@ -88,7 +90,11 @@ const SignUp = () => {
                 {...form.getInputProps("password")}
               />
               <Group position="right" mt="xl">
-                <Button type="submit">
+                <Button
+                  type="submit"
+                  radius={3}
+                  onClick={() => history("/home")}
+                >
                   {isLoading ? (
                     <Loader color="white" variant="dots" />
                   ) : (
