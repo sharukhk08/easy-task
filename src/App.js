@@ -1,6 +1,6 @@
 import "./App.css";
 import { MantineProvider } from "@mantine/core";
-import Login from "./views/Login";
+import AppRoutes from "./AppRoutes";
 
 const myTheme = {
   colorScheme: "light",
@@ -11,7 +11,7 @@ const myTheme = {
 function App() {
   return (
     <MantineProvider theme={myTheme}>
-      <Login />
+      <AppRoutes />
     </MantineProvider>
   );
 }

@@ -20,16 +20,15 @@ body {
   width: 100%;
   width: 100%;
   background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 6px;
+  padding: 25px;
 }
 
 .login-wrapper form .mantine-Button-filled {
-  width: 85px;
+  width: 93px;
 }
-/* .login-wrapper .mantine-1wkxsou {
-  width: 100%;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-} */
+
+.link-style a {
+  color: #fd7e14;
+  text-decoration: none;
+}
