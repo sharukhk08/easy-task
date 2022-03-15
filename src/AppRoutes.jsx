@@ -11,7 +11,6 @@ const AppRoutes = () => {
           <Route path="/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
-      ,
     </>
   );
 };
