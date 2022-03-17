@@ -54,7 +54,7 @@ function Login() {
               // subscribe to color scheme changes
               backgroundColor:
                 theme.colorScheme === "dark" ? theme.colors.dark[3] : "white",
-              maxWidth: "500px",
+              maxWidth: "600px",
               padding: "3rem",
               borderRadius: "10px",
             })}

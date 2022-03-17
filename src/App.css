@@ -11,6 +11,12 @@
   justify-content: center;
   align-items: center;
 }
+
+@media (min-width: 576px) {
+  .login-wrapper form {
+    min-width: 350px;
+  }
+}
 /* 
 .login-wrapper form {
   max-width: 400px;

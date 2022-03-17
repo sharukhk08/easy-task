@@ -1,6 +1,11 @@
 import "./App.css";
-import { MantineProvider } from "@mantine/core";
 import AppRoutes from "./AppRoutes";
+import { useState } from "react";
+import {
+  MantineProvider,
+  ColorSchemeProvider,
+  ColorScheme,
+} from "@mantine/core";
 
 const myTheme = {
   colorScheme: "light",
@@ -9,10 +14,18 @@ const myTheme = {
 };
 
 function App() {
+  const [colorScheme, setColorScheme] = useState(myTheme.colorScheme);
+  const toggleColorScheme = (value) =>
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   return (
-    <MantineProvider theme={myTheme}>
-      <AppRoutes />
-    </MantineProvider>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider theme={{ colorScheme }}>
+        <AppRoutes />
+      </MantineProvider>
+    </ColorSchemeProvider>
   );
 }
 
