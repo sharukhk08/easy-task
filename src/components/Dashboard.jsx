@@ -15,8 +15,9 @@ import React from "react";
 import { ChevronRight, ChevronLeft } from "tabler-icons-react";
 import { MainLinks } from "./MainLinks";
 import { Sun, MoonStars } from "tabler-icons-react";
+import { Outlet } from "react-router-dom";
 
-function Main() {
+function Dashboard() {
   const theme = useMantineTheme();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
@@ -60,12 +61,12 @@ function Main() {
         },
       })}
     >
-      Your application goes here
+      <Outlet />
     </AppShell>
   );
 }
 
-export default Main;
+export default Dashboard;
 
 export const User = ({ theme }) => {
   return (

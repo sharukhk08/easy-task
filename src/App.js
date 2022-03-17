@@ -2,7 +2,7 @@ import "./App.css";
 import AppRoutes from "./AppRoutes";
 import { useEffect, useState } from "react";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
-import { useHotkeys, useLocalStorage } from "@mantine/hooks";
+import { useLocalStorage } from "@mantine/hooks";
 
 const myTheme = {
   colorScheme: "light",

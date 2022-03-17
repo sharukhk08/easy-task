@@ -93,7 +93,7 @@ const SignUp = () => {
                 <Button
                   type="submit"
                   radius={3}
-                  onClick={() => history("/home")}
+                  onClick={() => history("/dashboard")}
                 >
                   {isLoading ? (
                     <Loader color="white" variant="dots" />

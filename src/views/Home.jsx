@@ -1,9 +1,11 @@
-import Main from "../components/Main";
+import Dashboard from "../components/Dashboard";
 
 const Home = () => {
   return (
     <>
-      <Main />
+      <div className="main-section">
+        <Dashboard />
+      </div>
     </>
   );
 };
