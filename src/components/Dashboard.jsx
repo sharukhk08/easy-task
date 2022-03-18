@@ -15,12 +15,13 @@ import React from "react";
 import { ChevronRight, ChevronLeft } from "tabler-icons-react";
 import { MainLinks } from "./MainLinks";
 import { Sun, MoonStars } from "tabler-icons-react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const theme = useMantineTheme();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
+  const history = useNavigate();
   return (
     <AppShell
       padding="md"
@@ -30,7 +31,7 @@ function Dashboard() {
             <MainLinks />
           </Navbar.Section>
           <Navbar.Section>
-            <User theme={theme} />
+            <User theme={theme} history={history} />
           </Navbar.Section>
         </Navbar>
       }
@@ -68,9 +69,10 @@ function Dashboard() {
 
 export default Dashboard;
 
-export const User = ({ theme }) => {
+export const User = ({ theme, history }) => {
   return (
     <Box
+      onClick={() => history("/dashboard/profile")}
       sx={{
         paddingTop: theme.spacing.sm,
         borderTop: `1px solid ${
@@ -122,6 +124,7 @@ export const User = ({ theme }) => {
   );
 };
 
+// HEADER LOGO
 export function Logo({ colorScheme }) {
   return (
     <h1 className={colorScheme === "dark" ? "dim-text-white" : "text-black"}>

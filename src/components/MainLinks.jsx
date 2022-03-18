@@ -52,7 +52,7 @@ const data = [
     icon: <List size={16} />,
     color: "#fd7e14",
     label: "All Tasks",
-    route: "/dashboard/all-task",
+    route: "/dashboard/all-tasks",
   },
 ];
 
