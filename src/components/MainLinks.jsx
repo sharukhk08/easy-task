@@ -1,15 +1,13 @@
 import React from "react";
-import {
-  GitPullRequest,
-  AlertCircle,
-  Messages,
-  Database,
-} from "tabler-icons-react";
+import { Clock, List, Messages, SquarePlus } from "tabler-icons-react";
 import { ThemeIcon, UnstyledButton, Group, Text } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 
-function MainLink({ icon, color, label }) {
+function MainLink({ icon, color, label, route }) {
+  const history = useNavigate();
   return (
     <UnstyledButton
+      onClick={() => history(route)}
       sx={(theme) => ({
         display: "block",
         width: "100%",
@@ -38,10 +36,24 @@ function MainLink({ icon, color, label }) {
 }
 
 const data = [
-  { icon: <GitPullRequest size={16} />, color: "blue", label: "Pull Requests" },
-  { icon: <AlertCircle size={16} />, color: "teal", label: "Open Issues" },
-  { icon: <Messages size={16} />, color: "violet", label: "Discussions" },
-  { icon: <Database size={16} />, color: "grape", label: "Databases" },
+  {
+    icon: <SquarePlus size={16} />,
+    color: "#fd7e14",
+    label: "Add Task",
+    route: "/dashboard/add-task",
+  },
+  {
+    icon: <Clock size={16} />,
+    color: "#fd7e14",
+    label: "Today's Task",
+    route: "/dashboard/today-task",
+  },
+  {
+    icon: <List size={16} />,
+    color: "#fd7e14",
+    label: "All Tasks",
+    route: "/dashboard/all-task",
+  },
 ];
 
 export function MainLinks() {

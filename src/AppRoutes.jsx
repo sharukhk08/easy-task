@@ -4,6 +4,7 @@ import SignUp from "./views/SignUp";
 import Home from "./views/Home";
 import ToadayTask from "./components/ToadayTask";
 import AddTask from "./components/AddTask";
+import AllTasks from "./components/AllTasks";
 import NoRouteFound from "./components/common/NoRouteFound";
 
 const AppRoutes = () => {
@@ -14,6 +15,7 @@ const AppRoutes = () => {
           <Route path="dashboard" element={<Home />}>
             <Route path="add-task" element={<AddTask />} />
             <Route path="today-task" element={<ToadayTask />} />
+            <Route path="all-tasks" element={<AllTasks />} />
             <Route path="/dashboard" element={<NoRouteFound />} />
           </Route>
           <Route path="/" element={<Login />} />
