@@ -8,6 +8,8 @@ import {
   Loader,
   Textarea,
   Container,
+  useMantineTheme,
+  Text,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 
@@ -34,12 +36,25 @@ const AddTask = () => {
     console.log(values);
     setLoading(true);
   };
+  const theme = useMantineTheme();
+
   return (
     <>
       <Container size="sm" px="xs">
         <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
           <Group mb="lg">
-            <h1>Add Your Daily Tasks </h1>
+            <Text
+              sx={{
+                fontWeight: "bold",
+                color:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.gray[5]
+                    : theme.colors.dark[10],
+                fontSize: 32,
+              }}
+            >
+              Add Your Daily Tasks
+            </Text>
           </Group>
           <TextInput
             required
