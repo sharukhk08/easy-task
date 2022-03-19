@@ -39,7 +39,6 @@ function Login() {
       <div className="login-wrapper">
         <Center
           sx={(theme) => ({
-            // subscribe to color scheme changes
             backgroundColor:
               theme.colorScheme === "dark"
                 ? theme.colors.dark[7]
@@ -51,7 +50,6 @@ function Login() {
         >
           <Box
             sx={(theme) => ({
-              // subscribe to color scheme changes
               backgroundColor:
                 theme.colorScheme === "dark" ? theme.colors.dark[3] : "white",
               maxWidth: "600px",

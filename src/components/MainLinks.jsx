@@ -1,5 +1,5 @@
 import React from "react";
-import { Clock, List, Messages, SquarePlus } from "tabler-icons-react";
+import { Clock, List, SquarePlus } from "tabler-icons-react";
 import { ThemeIcon, UnstyledButton, Group, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ function MainLink({ icon, color, label, route }) {
           {icon}
         </ThemeIcon>
 
-        <Text size="sm">{label}</Text>
+        <Text size="md">{label}</Text>
       </Group>
     </UnstyledButton>
   );
@@ -37,19 +37,19 @@ function MainLink({ icon, color, label, route }) {
 
 const data = [
   {
-    icon: <SquarePlus size={16} />,
+    icon: <SquarePlus size={18} />,
     color: "#fd7e14",
     label: "Add Task",
     route: "/dashboard/add-task",
   },
   {
-    icon: <Clock size={16} />,
+    icon: <Clock size={18} />,
     color: "#fd7e14",
     label: "Today's Task",
     route: "/dashboard/today-task",
   },
   {
-    icon: <List size={16} />,
+    icon: <List size={18} />,
     color: "#fd7e14",
     label: "All Tasks",
     route: "/dashboard/all-tasks",
