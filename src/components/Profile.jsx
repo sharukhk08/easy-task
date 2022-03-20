@@ -15,6 +15,7 @@ import { Avatar } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { Logout } from "tabler-icons-react";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   name: z.string().min(2, { message: "Name should have at least 2 letters" }),
@@ -38,6 +39,7 @@ const Profile = () => {
     setLoading(true);
   };
   const theme = useMantineTheme();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -45,7 +47,7 @@ const Profile = () => {
         <Group position="apart" align="start">
           <Group>
             <Avatar color="#FF922B" radius={60} size={120}>
-              MK
+              SK
             </Avatar>
             <Group direction="column">
               <Title
@@ -61,17 +63,31 @@ const Profile = () => {
               >
                 Sharukh khan
               </Title>
-              <Text>Front End Developer</Text>
+              <Text
+                sx={{
+                  fontWeight: "semibold",
+                  color:
+                    theme.colorScheme === "dark"
+                      ? theme.colors.gray[5]
+                      : theme.colors.dark[10],
+                  fontSize: 20,
+                }}
+              >
+                Front End Developer
+              </Text>{" "}
             </Group>
           </Group>
           <Menu>
-            <Menu.Item disabled icon={<Logout size={14} />}>
+            <Menu.Item
+              icon={<Logout size={14} />}
+              onClick={() => navigate("/")}
+            >
               LOGOUT
             </Menu.Item>
           </Menu>
         </Group>
 
-        <Box maxWidth={100}>
+        <Box>
           <form
             className="mt-20"
             onSubmit={form.onSubmit((values) => handleSubmit(values))}

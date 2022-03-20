@@ -9,6 +9,8 @@ import {
   Loader,
   Text,
   Center,
+  Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -34,7 +36,7 @@ function Login() {
     setLoading(true);
   };
   const history = useNavigate();
-
+  const theme = useMantineTheme();
   return (
     <>
       <div className="login-wrapper">
@@ -59,9 +61,20 @@ function Login() {
             })}
           >
             <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-              <Group mb="lg">
-                <h1>Login To Easy Task</h1>
-              </Group>
+              <Title
+                mb="lg"
+                sx={{
+                  fontWeight: "bold",
+                  color:
+                    theme.colorScheme === "dark"
+                      ? theme.colors.gray[5]
+                      : theme.colors.dark[10],
+                  fontSize: 32,
+                }}
+                order={1}
+              >
+                Login To Easy Task
+              </Title>
               <TextInput
                 required
                 label="Email"

@@ -38,7 +38,7 @@ function Dashboard() {
       header={
         <Header height={60}>
           <Group sx={{ height: "100%" }} px={20} position="apart">
-            <Logo colorScheme={colorScheme} />
+            <Logo colorScheme={colorScheme} history={history} />
             <ActionIcon
               variant="default"
               onClick={() => toggleColorScheme()}
@@ -125,9 +125,14 @@ export const User = ({ theme, history }) => {
 };
 
 // HEADER LOGO
-export function Logo({ colorScheme }) {
+export function Logo({ colorScheme, history }) {
   return (
-    <h1 className={colorScheme === "dark" ? "dim-text-white" : "text-black"}>
+    <h1
+      onClick={() => history("/dashboard/profile")}
+      className={`cursor-pointer ${
+        colorScheme === "dark" ? "dim-text-white" : "text-black"
+      }`}
+    >
       Easy Task
     </h1>
   );

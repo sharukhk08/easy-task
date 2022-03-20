@@ -34,6 +34,11 @@
 .mt-20 {
   margin-top: 20px;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .dim-text-white {
   color: rgba(255, 255, 255, 0.7);
 }
