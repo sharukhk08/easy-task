@@ -3,6 +3,7 @@ import AppRoutes from "./AppRoutes";
 import { useEffect, useState } from "react";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
+import { ModalsProvider } from "@mantine/modals";
 
 const myTheme = {
   colorScheme: "light",
@@ -11,11 +12,6 @@ const myTheme = {
 };
 
 function App() {
-  // const [colorScheme, setColorScheme] = useLocalStorage({
-  //   key: "mantine-color-scheme",
-  //   defaultValue: "light",
-  // });
-
   const [colorScheme, setColorScheme] = useState(myTheme);
   const toggleColorScheme = () => {
     console.log(colorScheme.colorScheme);
@@ -55,20 +51,15 @@ function App() {
     }
   }, []);
 
-  // useHotkeys("ctrl+shift+c", toggleColorScheme);
-  console.log(colorScheme, "colorScheme");
-  console.log(myTheme, "myTheme");
-  console.log(value, "value");
-
-  // useHotkeys([["mod+J", () => toggleColorScheme()]]);
-
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme.colorScheme}
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider theme={colorScheme}>
-        <AppRoutes />
+        <ModalsProvider>
+          <AppRoutes />
+        </ModalsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );

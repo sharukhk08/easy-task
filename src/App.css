@@ -14,6 +14,19 @@
   color: #fff;
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
+.mx-10 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mx-5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
 .dim-text-white {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -38,6 +51,7 @@
 /* MAIN SECTION  */
 .main-section {
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .main-section .mantine-Navbar-root {
@@ -47,6 +61,9 @@
   height: calc(100vh - 60px);
 }
 
+.main-section .mantine-AppShell-main {
+  overflow: auto;
+}
 /* MEDIA QUERY  */
 
 @media (min-width: 576px) {

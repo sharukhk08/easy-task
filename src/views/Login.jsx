@@ -10,7 +10,7 @@ import {
   Text,
   Center,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -33,6 +33,7 @@ function Login() {
     console.log(values);
     setLoading(true);
   };
+  const history = useNavigate();
 
   return (
     <>
@@ -76,7 +77,11 @@ function Login() {
                 {...form.getInputProps("password")}
               />
               <Group position="right" mt="xl">
-                <Button type="submit" radius={3}>
+                <Button
+                  type="submit"
+                  radius={3}
+                  onClick={() => history("/dashboard/add-task")}
+                >
                   {isLoading ? (
                     <Loader color="white" variant="dots" />
                   ) : (

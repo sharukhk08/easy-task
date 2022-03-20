@@ -10,6 +10,7 @@ import {
   Container,
   useMantineTheme,
   Text,
+  Title,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 
@@ -42,20 +43,20 @@ const AddTask = () => {
     <>
       <Container size="sm" px="xs">
         <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-          <Group mb="lg">
-            <Text
-              sx={{
-                fontWeight: "bold",
-                color:
-                  theme.colorScheme === "dark"
-                    ? theme.colors.gray[5]
-                    : theme.colors.dark[10],
-                fontSize: 32,
-              }}
-            >
-              Add Your Daily Tasks
-            </Text>
-          </Group>
+          <Title
+            mb="lg"
+            sx={{
+              fontWeight: "bold",
+              color:
+                theme.colorScheme === "dark"
+                  ? theme.colors.gray[5]
+                  : theme.colors.dark[10],
+              fontSize: 32,
+            }}
+            order={1}
+          >
+            Add Your Daily Tasks
+          </Title>
           <TextInput
             required
             label="Project Name"
