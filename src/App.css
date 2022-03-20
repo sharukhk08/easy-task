@@ -27,6 +27,13 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
 .dim-text-white {
   color: rgba(255, 255, 255, 0.7);
 }
