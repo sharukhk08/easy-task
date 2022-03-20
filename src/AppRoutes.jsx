@@ -8,7 +8,7 @@ import AllTasks from "./components/AllTasks";
 import NoRouteFound from "./components/common/NoRouteFound";
 import Profile from "./components/Profile";
 import ViewTaskDetails from "./components/ViewTaskDetails";
-import Task from "./components/common/Task";
+import EditTask from "./components/EditTask";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +20,7 @@ const AppRoutes = () => {
             <Route path="today-task" element={<ToadayTask />} />
             <Route path=":taskId" element={<ViewTaskDetails />} />
             <Route path="all-tasks" element={<AllTasks />} />
+            <Route path="tasks/edit" element={<EditTask />} />
             <Route path="profile" element={<Profile />} />
             <Route path="/dashboard" element={<NoRouteFound />} />
           </Route>

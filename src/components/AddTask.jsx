@@ -21,7 +21,7 @@ const schema = z.object({
     .min(8, { message: "Password should have at least 8 letters!" }),
 });
 
-const AddTask = () => {
+const AddTask = ({ heading }) => {
   const [isLoading, setLoading] = useState(false);
   const [value, onChange] = useState(new Date());
 
@@ -55,7 +55,7 @@ const AddTask = () => {
             }}
             order={1}
           >
-            Add Your Daily Tasks
+            {heading ? heading : "Add Your Daily Tasks"}
           </Title>
           <TextInput
             required

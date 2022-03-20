@@ -9,7 +9,7 @@ import {
 import { Table } from "@mantine/core";
 import { Eye, Pencil } from "tabler-icons-react";
 import DeleteModal from "./common/DeleteModal";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ToadayTask = () => {
   const theme = useMantineTheme();
@@ -64,7 +64,7 @@ const ToadayTask = () => {
         <span className="mx-5" onClick={() => navigate(`/dashboard/${id}`)}>
           <Eye />
         </span>
-        <span>
+        <span onClick={() => navigate("/dashboard/tasks/edit")}>
           <Pencil />
         </span>
       </td>
@@ -72,8 +72,6 @@ const ToadayTask = () => {
   ));
   return (
     <>
-      {/* create ui with mantine for show today's task list you added  */}
-
       <Container>
         <Title
           mb="lg"
