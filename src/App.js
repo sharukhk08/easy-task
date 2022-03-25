@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
 
 const myTheme = {
   colorScheme: "light",
@@ -58,7 +59,9 @@ function App() {
     >
       <MantineProvider theme={colorScheme}>
         <ModalsProvider>
-          <AppRoutes />
+          <NotificationsProvider>
+            <AppRoutes />
+          </NotificationsProvider>
         </ModalsProvider>
       </MantineProvider>
     </ColorSchemeProvider>

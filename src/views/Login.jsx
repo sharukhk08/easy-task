@@ -14,6 +14,7 @@ import {
 } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserAuthProvider } from "../contexts/UserAuthProvider";
+import { useNotifications } from "@mantine/notifications";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -27,6 +28,8 @@ function Login() {
 
   const [isLoading, setLoading] = React.useState(false);
   const [Error, setError] = React.useState(false);
+  const notifications = useNotifications();
+
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
@@ -39,6 +42,13 @@ function Login() {
     console.log(values);
     if (!values.email || !values.password) {
       setError("Please enter email and password");
+
+      notifications.showNotification({
+        color: "#fd7e14",
+        title: "Please enter email and password",
+        message: "unless you click X",
+        autoClose: false,
+      });
       return;
     }
     try {
@@ -48,6 +58,12 @@ function Login() {
       history.push("/dashboard/add-task");
     } catch (error) {
       setLoading(false);
+      notifications.showNotification({
+        color: "#FF922B",
+        title: "Email or password is incorrect",
+        message: "unless you click X",
+        autoClose: false,
+      });
     }
   };
   const history = useNavigate();
