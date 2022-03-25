@@ -13,6 +13,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
+import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -22,7 +23,10 @@ const schema = z.object({
 });
 
 function Login() {
+  const { login } = useUserAuthProvider();
+
   const [isLoading, setLoading] = React.useState(false);
+  const [Error, setError] = React.useState(false);
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
@@ -33,7 +37,18 @@ function Login() {
 
   const handleSubmit = async (values) => {
     console.log(values);
-    setLoading(true);
+    if (!values.email || !values.password) {
+      setError("Please enter email and password");
+      return;
+    }
+    try {
+      setLoading(true);
+      await login(values.email, values.password);
+      setLoading(false);
+      history.push("/dashboard/add-task");
+    } catch (error) {
+      setLoading(false);
+    }
   };
   const history = useNavigate();
   const theme = useMantineTheme();
@@ -90,11 +105,7 @@ function Login() {
                 {...form.getInputProps("password")}
               />
               <Group position="right" mt="xl">
-                <Button
-                  type="submit"
-                  radius={3}
-                  onClick={() => history("/dashboard/add-task")}
-                >
+                <Button type="submit" radius={3}>
                   {isLoading ? (
                     <Loader color="white" variant="dots" />
                   ) : (
