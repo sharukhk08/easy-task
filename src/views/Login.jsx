@@ -55,7 +55,7 @@ function Login() {
       setLoading(true);
       await login(values.email, values.password);
       setLoading(false);
-      history.push("/dashboard/add-task");
+      history("/dashboard/add-task");
     } catch (error) {
       setLoading(false);
       notifications.showNotification({
