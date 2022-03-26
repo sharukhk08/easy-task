@@ -25,10 +25,9 @@ const schema = z.object({
 
 function Login() {
   const { login } = useUserAuthProvider();
+  const notifications = useNotifications();
 
   const [isLoading, setLoading] = React.useState(false);
-  const [Error, setError] = React.useState(false);
-  const notifications = useNotifications();
 
   const form = useForm({
     schema: zodResolver(schema),
@@ -41,12 +40,10 @@ function Login() {
   const handleSubmit = async (values) => {
     console.log(values);
     if (!values.email || !values.password) {
-      setError("Please enter email and password");
-
       notifications.showNotification({
         color: "#fd7e14",
         title: "Please enter email and password",
-        message: "unless you click X",
+        message: "You cannot login without email and password",
         autoClose: false,
       });
       return;
@@ -59,9 +56,9 @@ function Login() {
     } catch (error) {
       setLoading(false);
       notifications.showNotification({
-        color: "#FF922B",
+        color: "#fd7e14",
         title: "Email or password is incorrect",
-        message: "unless you click X",
+        message: "Please try again",
         autoClose: false,
       });
     }

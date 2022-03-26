@@ -14,7 +14,8 @@ import {
 } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserAuthProvider } from "../contexts/UserAuthProvider";
-
+import { useNotifications } from "@mantine/notifications";
+import { easytasksService } from "../easytask.service";
 const schema = z.object({
   name: z.string().min(2, { message: "Name should have at least 2 letters" }),
   email: z.string().email({ message: "Invalid email" }),
@@ -25,6 +26,7 @@ const schema = z.object({
 
 const SignUp = () => {
   const { signUp } = useUserAuthProvider();
+  const notifications = useNotifications();
 
   const history = useNavigate();
   const theme = useMantineTheme();
@@ -39,14 +41,31 @@ const SignUp = () => {
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
     setLoading(true);
     try {
       await signUp(values.email, values.password);
+      const usersData = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      };
+      await easytasksService.addNewUser(usersData);
       setLoading(false);
       history("/dashboard/add-task");
+      notifications.showNotification({
+        color: "#fd7e14",
+        title: "You've successfully signed up",
+        message: "Check your email to verify your account",
+        autoClose: false,
+      });
     } catch (error) {
       setLoading(false);
+      notifications.showNotification({
+        color: "#fd7e14",
+        title: "Failed tp sign up",
+        message: "Email already exists",
+        autoClose: false,
+      });
     }
   };
 
@@ -55,7 +74,6 @@ const SignUp = () => {
       <div className="login-wrapper">
         <Center
           sx={(theme) => ({
-            // subscribe to color scheme changes
             backgroundColor:
               theme.colorScheme === "dark"
                 ? theme.colors.dark[7]
@@ -67,7 +85,6 @@ const SignUp = () => {
         >
           <Box
             sx={(theme) => ({
-              // subscribe to color scheme changes
               backgroundColor:
                 theme.colorScheme === "dark" ? theme.colors.dark[3] : "white",
               maxWidth: "500px",

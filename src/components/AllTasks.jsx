@@ -18,25 +18,25 @@ const AllTasks = () => {
 
   const elements = [
     {
-      projectname: "Alder mages",
+      projectname: "Easy Task",
       hourstrack: 1,
       description: "Change Logo",
       date: "Mar 19 2022",
     },
     {
-      projectname: "Alder mages",
+      projectname: "Easy Task",
       hourstrack: 1,
       description: "Change Logo",
       date: "Mar 19 2022",
     },
     {
-      projectname: "Alder mages",
+      projectname: "Easy Task",
       hourstrack: 1,
       description: "Change Logo",
       date: "Mar 19 2022",
     },
     {
-      projectname: "Alder mages",
+      projectname: "Easy Task",
       hourstrack: 1,
       description: "Change Logo",
       date: "Mar 19 2022",

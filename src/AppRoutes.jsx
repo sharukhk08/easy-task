@@ -9,6 +9,7 @@ import NoRouteFound from "./components/common/NoRouteFound";
 import Profile from "./components/Profile";
 import ViewTaskDetails from "./components/ViewTaskDetails";
 import EditTask from "./components/EditTask";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRoutes = () => {
   return (
