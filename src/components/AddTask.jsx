@@ -17,10 +17,10 @@ import { useNotifications } from "@mantine/notifications";
 import { easytasksService } from "../easytask.service";
 
 const schema = z.object({
-  email: z.string().email({ message: "Invalid email" }),
-  password: z
-    .string()
-    .min(8, { message: "Password should have at least 8 letters!" }),
+  projectName: z.string(),
+  // hours: z.number().positive({ message: "Hours should be positive" }),
+  hours: z.string(),
+  description: z.string(),
 });
 
 const AddTask = ({ heading }) => {
@@ -40,7 +40,6 @@ const AddTask = ({ heading }) => {
   });
 
   const handleSubmit = async (values) => {
-    console.log("handleSubmit");
     if (
       !values.projectName ||
       !values.hours ||
@@ -57,26 +56,27 @@ const AddTask = ({ heading }) => {
       description: values.description,
       time: timeValue,
     };
+
     try {
       setLoading(true);
       await easytasksService.addTask(tasksData);
-      console.log("try");
       setLoading(false);
       notifications.showNotification({
         color: "#fd7e14",
-        title: "You've successfully signed up",
-        message: "Check your email to verify your account",
-        autoClose: false,
+        title: "Task added successfully",
+        message: "click to close",
+        autoClose: true,
       });
+      // null all the fields
+      form.reset();
     } catch (error) {
       setLoading(false);
       console.log("catch", error);
-
       notifications.showNotification({
         color: "#fd7e14",
-        title: "Failed tp sign up",
-        message: "Email already exists",
-        autoClose: false,
+        title: "Failed to add task",
+        message: "click to close",
+        autoClose: true,
       });
     }
   };

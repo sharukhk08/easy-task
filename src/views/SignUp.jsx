@@ -142,7 +142,7 @@ const SignUp = () => {
                     <Loader color="white" variant="dots" />
                   ) : (
                     "Sign Up"
-                  )}{" "}
+                  )}
                 </Button>
               </Group>
 
