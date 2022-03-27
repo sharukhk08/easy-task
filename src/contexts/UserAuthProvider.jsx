@@ -16,7 +16,6 @@ export function useUserAuthProvider() {
 export default function UserAuthProvider({ children }) {
   const [user, setUser] = useState({});
   const [Loading, setLoading] = useState(true);
-
   // LOGIN
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);

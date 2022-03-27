@@ -41,8 +41,13 @@ const SignUp = () => {
   });
 
   const handleSubmit = async (values) => {
-    setLoading(true);
+    if (!values.name || !values.email || !values.password) {
+      notifications.error("Please fill all the fields");
+      return;
+    }
     try {
+      setLoading(true);
+
       await signUp(values.email, values.password);
       const usersData = {
         name: values.name,
@@ -50,6 +55,7 @@ const SignUp = () => {
         password: values.password,
       };
       await easytasksService.addNewUser(usersData);
+      console.log("try");
       setLoading(false);
       history("/dashboard/add-task");
       notifications.showNotification({
@@ -60,6 +66,8 @@ const SignUp = () => {
       });
     } catch (error) {
       setLoading(false);
+      console.log("catch", error);
+
       notifications.showNotification({
         color: "#fd7e14",
         title: "Failed tp sign up",

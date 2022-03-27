@@ -15,6 +15,11 @@ export const easytasksService = {
   addNewUser: async (newUser) => {
     return await addDoc(usersRef, newUser);
   },
+
+  getUserDetails: async (id) => {
+    const userdetails = doc(db, "users", id);
+    return await getDoc(userdetails);
+  },
   //   getAllCollections: async () => {
   //     return await getDocs(nftCollectionsRef);
   //   },
@@ -26,10 +31,5 @@ export const easytasksService = {
   //   deleteNftCollection: async (id) => {
   //     const nftDoc = doc(db, "nftCollections", id);
   //     return await deleteDoc(nftDoc);
-  //   },
-
-  //   getNftCollectionDetails: async (id) => {
-  //     const nftDoc = doc(db, "nftCollections", id);
-  //     return await getDoc(nftDoc);
   //   },
 };
