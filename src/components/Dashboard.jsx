@@ -11,19 +11,22 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import { ChevronRight, ChevronLeft } from "tabler-icons-react";
 import { MainLinks } from "./MainLinks";
 import { Sun, MoonStars } from "tabler-icons-react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Burger } from "@mantine/core";
 
 function Dashboard({ userDetails }) {
   const theme = useMantineTheme();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const [opened, setOpened] = useState(false);
 
   const history = useNavigate();
   return (
     <AppShell
+      className={`${opened ? "sidebar-open" : ""}`}
       padding="md"
       navbar={
         <Navbar width={{ base: 300 }} height={500} p="xs">
@@ -39,6 +42,7 @@ function Dashboard({ userDetails }) {
         <Header height={60}>
           <Group sx={{ height: "100%" }} px={20} position="apart">
             <Logo colorScheme={colorScheme} history={history} />
+            <Burger opened={opened} onClick={() => setOpened((o) => !o)} />
             <ActionIcon
               variant="default"
               onClick={() => toggleColorScheme()}

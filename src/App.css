@@ -77,6 +77,25 @@
   overflow: auto;
 }
 
+@media (min-width: 992px) {
+  .mantine-Burger-root {
+    display: none !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .main-section .mantine-Navbar-root {
+    position: fixed;
+    left: -300px;
+  }
+  .sidebar-open .mantine-Navbar-root {
+    left: 0;
+  }
+  .mantine-khtkeg {
+    position: fixed;
+    bottom: 0;
+  }
+}
 .preloader-wrapper {
   display: flex;
   justify-content: center;

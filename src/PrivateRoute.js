@@ -3,7 +3,7 @@ import { useUserAuthProvider } from "./contexts/UserAuthProvider";
 import { Navigate, Outlet } from "react-router-dom";
 import PreLoader from "./components/common/PreLoader";
 
-function PrivateRoute({ children }) {
+function PrivateRoute() {
   const { user, Loading } = useUserAuthProvider();
   const checkPath = window.location.pathname;
 
@@ -19,6 +19,7 @@ function PrivateRoute({ children }) {
     <Navigate to="/login" />
   );
 }
+export default PrivateRoute;
 // const PrivateRoute = ({ component: Component, ...restOfProps }) => {
 // const { user, Loading } = useUserAuthProvider();
 
@@ -39,5 +40,3 @@ function PrivateRoute({ children }) {
 //     </>
 //   );
 // };
-
-export default PrivateRoute;
