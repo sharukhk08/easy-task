@@ -79,10 +79,8 @@ export const User = ({ theme, history, userDetails }) => {
       ? userDetails
       : { name: "easy Task", email: "easytask@gmail.com" };
   const splitNameBySpace = name ? name.split(" ") : "";
-  console.log(splitNameBySpace);
   const firstChar = splitNameBySpace ? splitNameBySpace[0].charAt(0) : "";
   const SecondChar = splitNameBySpace ? splitNameBySpace[1].charAt(0) : "";
-  console.log(firstChar, SecondChar);
   return (
     <Box
       onClick={() => history("/dashboard/profile")}

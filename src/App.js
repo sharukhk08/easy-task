@@ -15,7 +15,6 @@ const myTheme = {
 function App() {
   const [colorScheme, setColorScheme] = useState(myTheme);
   const toggleColorScheme = () => {
-    console.log(colorScheme.colorScheme);
     //  check if color scheme is light or dark
     if (colorScheme.colorScheme === "light") {
       setColorScheme({

@@ -55,7 +55,7 @@ const SignUp = () => {
         password: values.password,
       };
       await easytasksService.addNewUser(usersData);
-      console.log("try");
+
       setLoading(false);
       history("/dashboard/add-task");
       notifications.showNotification({
@@ -66,7 +66,6 @@ const SignUp = () => {
       });
     } catch (error) {
       setLoading(false);
-      console.log("catch", error);
 
       notifications.showNotification({
         color: "#fd7e14",

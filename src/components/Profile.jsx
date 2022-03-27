@@ -36,7 +36,6 @@ const Profile = () => {
     },
   });
   const handleSubmit = async (values) => {
-    console.log(values);
     setLoading(true);
   };
   const theme = useMantineTheme();

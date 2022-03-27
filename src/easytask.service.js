@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 
 const usersRef = collection(db, "users");
+const tasksRef = collection(db, "tasks");
 
 export const easytasksService = {
   addNewUser: async (newUser) => {
@@ -20,6 +21,11 @@ export const easytasksService = {
     const userdetails = doc(db, "users", id);
     return await getDoc(userdetails);
   },
+
+  addTask: async (newTask) => {
+    return await addDoc(tasksRef, newTask);
+  },
+
   //   getAllCollections: async () => {
   //     return await getDocs(nftCollectionsRef);
   //   },

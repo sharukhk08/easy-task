@@ -13,6 +13,8 @@ import {
   Title,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
+import { useNotifications } from "@mantine/notifications";
+import { easytasksService } from "../easytask.service";
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -23,21 +25,61 @@ const schema = z.object({
 
 const AddTask = ({ heading }) => {
   const [isLoading, setLoading] = useState(false);
-  const [value, onChange] = useState(new Date());
+  const [timeValue, onChange] = useState(new Date());
+
+  const theme = useMantineTheme();
+  const notifications = useNotifications();
 
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
       projectName: "",
       hours: "",
+      description: "",
     },
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    setLoading(true);
+    console.log("handleSubmit");
+    if (
+      !values.projectName ||
+      !values.hours ||
+      !values.description ||
+      !timeValue
+    ) {
+      notifications.error("Please fill all the fields");
+      return;
+    }
+
+    const tasksData = {
+      projectName: values.projectName,
+      hours: values.hours,
+      description: values.description,
+      time: timeValue,
+    };
+    try {
+      setLoading(true);
+      await easytasksService.addTask(tasksData);
+      console.log("try");
+      setLoading(false);
+      notifications.showNotification({
+        color: "#fd7e14",
+        title: "You've successfully signed up",
+        message: "Check your email to verify your account",
+        autoClose: false,
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log("catch", error);
+
+      notifications.showNotification({
+        color: "#fd7e14",
+        title: "Failed tp sign up",
+        message: "Email already exists",
+        autoClose: false,
+      });
+    }
   };
-  const theme = useMantineTheme();
 
   return (
     <>
@@ -80,18 +122,23 @@ const AddTask = ({ heading }) => {
             maxRows={5}
             mt="sm"
             radius={3}
+            {...form.getInputProps("description")}
           />
           <DatePicker
             label="Pick Today's Date"
             placeholder="February 28, 1999"
-            value={value}
+            value={timeValue}
             onChange={onChange}
             mt="sm"
             radius={3}
           />
           <Group position="right" mt="xl">
             <Button type="submit" radius={3}>
-              {isLoading ? <Loader color="white" variant="dots" /> : "Add Task"}
+              {isLoading ? (
+                <Loader color="white" variant="dots" />
+              ) : (
+                "hola Task"
+              )}
             </Button>
           </Group>
         </form>

@@ -38,7 +38,6 @@ function Login() {
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
     if (!values.email || !values.password) {
       notifications.showNotification({
         color: "#fd7e14",
