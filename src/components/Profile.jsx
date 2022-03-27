@@ -16,6 +16,7 @@ import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { Logout } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
+import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 
 const schema = z.object({
   name: z.string().min(2, { message: "Name should have at least 2 letters" }),
@@ -40,6 +41,8 @@ const Profile = () => {
   };
   const theme = useMantineTheme();
   const navigate = useNavigate();
+
+  const { logout } = useUserAuthProvider();
 
   return (
     <>
@@ -80,7 +83,10 @@ const Profile = () => {
           <Menu>
             <Menu.Item
               icon={<Logout size={14} />}
-              onClick={() => navigate("/")}
+              onClick={() => {
+                logout();
+                navigate("/");
+              }}
             >
               LOGOUT
             </Menu.Item>
