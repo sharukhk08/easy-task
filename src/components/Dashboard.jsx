@@ -17,7 +17,7 @@ import { MainLinks } from "./MainLinks";
 import { Sun, MoonStars } from "tabler-icons-react";
 import { Outlet, useNavigate } from "react-router-dom";
 
-function Dashboard() {
+function Dashboard({ userDetails }) {
   const theme = useMantineTheme();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
@@ -31,7 +31,7 @@ function Dashboard() {
             <MainLinks />
           </Navbar.Section>
           <Navbar.Section>
-            <User theme={theme} history={history} />
+            <User theme={theme} history={history} userDetails={userDetails} />
           </Navbar.Section>
         </Navbar>
       }
@@ -69,7 +69,16 @@ function Dashboard() {
 
 export default Dashboard;
 
-export const User = ({ theme, history }) => {
+export const User = ({ theme, history, userDetails }) => {
+  const { name, email } =
+    userDetails && userDetails
+      ? userDetails
+      : { name: "easy Task", email: "easytask@gmail.com" };
+  const splitNameBySpace = name ? name.split(" ") : "";
+  console.log(splitNameBySpace);
+  const firstChar = splitNameBySpace ? splitNameBySpace[0].charAt(0) : "";
+  const SecondChar = splitNameBySpace ? splitNameBySpace[1].charAt(0) : "";
+  console.log(firstChar, SecondChar);
   return (
     <Box
       onClick={() => history("/dashboard/profile")}
@@ -100,16 +109,16 @@ export const User = ({ theme, history }) => {
         }}
       >
         <Group>
-          <Avatar
-            src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-            radius="xl"
-          />
+          <Avatar color="#FF922B" radius={60} size={50}>
+            {firstChar}
+            {SecondChar}
+          </Avatar>
           <Box sx={{ flex: 1 }}>
             <Text size="sm" weight={500}>
-              Amy Horsefighter
+              {name}
             </Text>
             <Text color="dimmed" size="xs">
-              ahorsefighter@gmail.com
+              {email}
             </Text>
           </Box>
 
