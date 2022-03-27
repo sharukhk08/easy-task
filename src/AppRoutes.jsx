@@ -16,16 +16,18 @@ const AppRoutes = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="dashboard" element={<Home />}>
-            <Route path="add-task" element={<AddTask />} />
-            <Route path="today-task" element={<ToadayTask />} />
-            <Route path=":taskId" element={<ViewTaskDetails />} />
-            <Route path="all-tasks" element={<AllTasks />} />
-            <Route path="tasks/edit" element={<EditTask />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="/dashboard" element={<NoRouteFound />} />
+          <Route path="/" element={<PrivateRoute />}>
+            <Route exact path="/dashboard" element={<Home />}>
+              <Route path="add-task" element={<AddTask />} />
+              <Route path="today-task" element={<ToadayTask />} />
+              <Route path=":taskId" element={<ViewTaskDetails />} />
+              <Route path="all-tasks" element={<AllTasks />} />
+              <Route path="tasks/edit" element={<EditTask />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="/dashboard" element={<NoRouteFound />} />
+            </Route>
           </Route>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<NoRouteFound />} />
         </Routes>

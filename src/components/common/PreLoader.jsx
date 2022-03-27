@@ -1,10 +1,11 @@
 import React from "react";
+import { Loader } from "@mantine/core";
 
 const PreLoader = () => {
   return (
     <>
       <div className="preloader-wrapper">
-        <h1>E</h1>
+        <Loader size="xl" variant="dots" />
       </div>
     </>
   );
