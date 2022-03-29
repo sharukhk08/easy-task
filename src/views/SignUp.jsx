@@ -52,6 +52,7 @@ const SignUp = () => {
       const usersData = {
         name: values.name,
         email: values.email,
+        profession: "",
         password: values.password,
       };
       await easytasksService.addNewUser(usersData);

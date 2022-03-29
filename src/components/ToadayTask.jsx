@@ -37,7 +37,7 @@ const ToadayTask = () => {
       <th>Action</th>
     </tr>
   );
-  console.log(todayTasks, "todayTasks");
+
   const rows =
     todayTasks &&
     todayTasks.length > 0 &&

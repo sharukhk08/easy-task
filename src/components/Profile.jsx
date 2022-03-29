@@ -17,6 +17,7 @@ import { z } from "zod";
 import { Logout } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuthProvider } from "../contexts/UserAuthProvider";
+import { useStoreUserData } from "../useStoreUserData";
 
 const schema = z.object({
   name: z.string().min(2, { message: "Name should have at least 2 letters" }),
@@ -26,13 +27,21 @@ const schema = z.object({
     .min(8, { message: "Password should have at least 8 letters!" }),
 });
 const Profile = () => {
+  const { user, logout } = useUserAuthProvider();
+
+  const { userDetails } = useStoreUserData({
+    user,
+  });
+
+  console.log(userDetails);
   const [isLoading, setLoading] = React.useState(false);
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: userDetails && userDetails.name,
+      email: userDetails && userDetails.email,
+      password: userDetails && userDetails.password,
+      profession: userDetails && userDetails.profession,
     },
   });
   const handleSubmit = async (values) => {
@@ -40,8 +49,6 @@ const Profile = () => {
   };
   const theme = useMantineTheme();
   const navigate = useNavigate();
-
-  const { logout } = useUserAuthProvider();
 
   return (
     <>
@@ -101,23 +108,32 @@ const Profile = () => {
               required
               label="Email"
               disabled
-              placeholder="easytask@mail.com"
+              placeholder={userDetails && userDetails.email}
               width="100%"
+              {...form.getInputProps("email")}
             />
-            <TextInput required label="Name" placeholder="Easy Task" mt="sm" />
+            <TextInput
+              required
+              label="Name"
+              placeholder={userDetails && userDetails.name}
+              mt="sm"
+              {...form.getInputProps("name")}
+            />
             <TextInput
               required
               label="Profession"
-              placeholder="Front End Developer"
+              placeholder={userDetails && userDetails.profession}
               mt="sm"
+              {...form.getInputProps("profession")}
             />
             {/* input for password  */}
             <TextInput
               required
               label="Password"
-              placeholder="********"
+              placeholder={userDetails && userDetails.password}
               mt="sm"
               type="password"
+              {...form.getInputProps("password")}
             />
 
             <Group position="right" mt="xl">
