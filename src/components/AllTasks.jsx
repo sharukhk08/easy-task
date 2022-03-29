@@ -1,47 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Blockquote,
   Center,
   Container,
   Title,
   useMantineTheme,
+  Loader,
 } from "@mantine/core";
 import { Table } from "@mantine/core";
 import { Eye, Pencil } from "tabler-icons-react";
 import DeleteModal from "./common/DeleteModal";
 import { useNavigate } from "react-router-dom";
 
+import { useStoreUserData } from "../useStoreUserData";
+import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 const AllTasks = () => {
   const theme = useMantineTheme();
   const navigate = useNavigate();
   const id = "2sfsa4";
+  const { user } = useUserAuthProvider();
 
-  const elements = [
-    {
-      projectname: "Easy Task",
-      hourstrack: 1,
-      description: "Change Logo",
-      date: "Mar 19 2022",
-    },
-    {
-      projectname: "Easy Task",
-      hourstrack: 1,
-      description: "Change Logo",
-      date: "Mar 19 2022",
-    },
-    {
-      projectname: "Easy Task",
-      hourstrack: 1,
-      description: "Change Logo",
-      date: "Mar 19 2022",
-    },
-    {
-      projectname: "Easy Task",
-      hourstrack: 1,
-      description: "Change Logo",
-      date: "Mar 19 2022",
-    },
-  ];
+  const { getAllTask, allTasks, isAllTaskLoading } = useStoreUserData({
+    user,
+  });
+
+  useEffect(() => {
+    getAllTask();
+  }, []);
+
   const ths = (
     <tr>
       <th>Project Name</th>
@@ -52,12 +38,12 @@ const AllTasks = () => {
     </tr>
   );
 
-  const rows = elements.map((element, index) => (
+  const rows = allTasks.map((element, index) => (
     <tr key={index}>
-      <td>{element.projectname}</td>
-      <td>{element.hourstrack}</td>
+      <td>{element.projectName}</td>
+      <td>{element.hours}</td>
       <td>{element.description}</td>
-      <td>{element.date}</td>
+      <td>{new Date(element.time.seconds * 1000).toDateString()}</td>
       <td>
         <DeleteModal />
 
@@ -87,7 +73,11 @@ const AllTasks = () => {
         >
           All Tasks List
         </Title>
-        {elements.length > 0 ? (
+        {isAllTaskLoading ? (
+          <Center my={200}>
+            <Loader />
+          </Center>
+        ) : allTasks.length > 0 ? (
           <Table highlightOnHover>
             <thead>{ths}</thead>
             <tbody>{rows}</tbody>

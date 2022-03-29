@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 
 const Home = () => {
   const { user } = useUserAuthProvider();
+
   const { userDetails, loading } = useStoreUserData({ user });
 
   return (

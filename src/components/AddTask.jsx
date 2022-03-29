@@ -9,12 +9,12 @@ import {
   Textarea,
   Container,
   useMantineTheme,
-  Text,
   Title,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useNotifications } from "@mantine/notifications";
 import { easytasksService } from "../easytask.service";
+import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 
 const schema = z.object({
   projectName: z.string(),
@@ -29,6 +29,8 @@ const AddTask = ({ heading }) => {
 
   const theme = useMantineTheme();
   const notifications = useNotifications();
+   const { user } = useUserAuthProvider();
+
 
   const form = useForm({
     schema: zodResolver(schema),
@@ -46,7 +48,7 @@ const AddTask = ({ heading }) => {
       !values.description ||
       !timeValue
     ) {
-      notifications.error("Please fill all the fields");
+      notifications.showNotification("Please fill all the fields");
       return;
     }
 
@@ -55,6 +57,8 @@ const AddTask = ({ heading }) => {
       hours: values.hours,
       description: values.description,
       time: timeValue,
+      createdAt : new Date(),
+      userId : user.uid,
     };
 
     try {
@@ -137,7 +141,7 @@ const AddTask = ({ heading }) => {
               {isLoading ? (
                 <Loader color="white" variant="dots" />
               ) : (
-                "hola Task"
+                "Add Task"
               )}
             </Button>
           </Group>

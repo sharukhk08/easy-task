@@ -4,7 +4,11 @@ import { db } from "./firebase-config";
 
 export function useStoreUserData({ user }) {
   const [userDetails, setUserDetails] = useState(null);
+  const [todayTasks, setTodayTasks] = useState([]);
+  const [allTasks, setAllTasks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isAllTaskLoading, setAllTaskLoading] = useState(false);
+  const [isTodayTaskLoading, setTodayTaskLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -22,7 +26,55 @@ export function useStoreUserData({ user }) {
       }
     };
     getData();
-  }, [user]);
+  }, []);
 
-  return { userDetails, loading };
+  // GET ONLY TODAY TASKS FROM FIREBASE
+  const getTodayTask = async () => {
+    setTodayTaskLoading(true);
+    const q = query(collection(db, "tasks"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+      if (user) {
+        if (task.userId === user.uid) {
+          const today = new Date();
+          const taskDate = new Date(task.createdAt.seconds * 1000);
+          if (
+            today.getDate() === taskDate.getDate() &&
+            today.getMonth() === taskDate.getMonth()
+          ) {
+            setTodayTasks((prevState) => [...prevState, task]);
+            setTodayTaskLoading(false);
+          }
+        }
+      }
+    });
+  };
+
+  // GET ONLY TODAY TASKS FROM FIREBASE
+  const getAllTask = async () => {
+    setAllTaskLoading(true);
+    const q = query(collection(db, "tasks"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+      if (user) {
+        if (task.userId === user.uid) {
+          setAllTasks((prevState) => [...prevState, task]);
+          setAllTaskLoading(false);
+        }
+      }
+    });
+  };
+
+  return {
+    isAllTaskLoading,
+    getAllTask,
+    allTasks,
+    isTodayTaskLoading,
+    getTodayTask,
+    todayTasks,
+    userDetails,
+    loading,
+  };
 }
