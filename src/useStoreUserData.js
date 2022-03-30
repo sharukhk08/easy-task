@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "./firebase-config";
+import { easytasksService } from "./easytask.service";
 
 export function useStoreUserData({ user }) {
   const [userDetails, setUserDetails] = useState(null);
@@ -77,15 +78,13 @@ export function useStoreUserData({ user }) {
 
   // DELETE TODAY TASKS FROM FIRESTORE
   const deleteTodayTask = async (id) => {
-    const q = query(collection(db, "tasks"), where("id", "==", id));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      doc.ref.delete();
-    });
-
-    const filteredTasks = todayTasks.filter((task) => task.id !== id);
+    console.log(id);
+    console.log(allTasks);
+    const filteredTasks = allTasks.filter((task) => task.docId !== id);
+    console.log(filteredTasks);
     setAllTasks(filteredTasks);
+
+    await easytasksService.deleteTask(id);
   };
 
   return {

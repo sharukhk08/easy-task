@@ -47,7 +47,7 @@ const AllTasks = () => {
       <td>{element.description}</td>
       <td>{new Date(element.time.seconds * 1000).toDateString()}</td>
       <td>
-        <DeleteModal deleteTodayTask={deleteTodayTask} />
+        <DeleteModal id={element.docId} deleteTodayTask={deleteTodayTask} />
 
         <span className="mx-5" onClick={() => navigate(`/dashboard/${id}`)}>
           <Eye />

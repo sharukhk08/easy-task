@@ -3,7 +3,7 @@ import { Button, Text } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import React from "react";
 
-const DeleteModal = ({ deleteTodayTask }) => {
+const DeleteModal = ({ deleteTodayTask, id }) => {
   const modals = useModals();
 
   const openDeleteModal = () =>
@@ -19,7 +19,7 @@ const DeleteModal = ({ deleteTodayTask }) => {
       labels: { confirm: "Delete Task", cancel: "No don't delete it" },
       confirmProps: { color: "red" },
       onCancel: () => console.log("Cancel"),
-      onConfirm: () => deleteTodayTask(),
+      onConfirm: () => deleteTodayTask(id),
     });
   return (
     <>

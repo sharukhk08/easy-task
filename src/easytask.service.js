@@ -26,6 +26,11 @@ export const easytasksService = {
     return await addDoc(tasksRef, newTask);
   },
 
+  deleteTask: async (id) => {
+    const taskDoc = doc(db, "tasks", id);
+    return await deleteDoc(taskDoc);
+  },
+
   //   getAllCollections: async () => {
   //     return await getDocs(nftCollectionsRef);
   //   },
