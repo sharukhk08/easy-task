@@ -10,7 +10,7 @@ import {
 import { Table } from "@mantine/core";
 import { Eye, Pencil } from "tabler-icons-react";
 import DeleteModal from "./common/DeleteModal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useStoreUserData } from "../useStoreUserData";
 import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 
@@ -26,7 +26,7 @@ const ToadayTask = () => {
 
   useEffect(() => {
     getTodayTask();
-  }, []);
+  }, [user]);
 
   const ths = (
     <tr>
@@ -89,8 +89,10 @@ const ToadayTask = () => {
         ) : (
           <Center>
             <Blockquote cite="– Forrest Gump">
-              Life is like an npm install – you never know what you are going to
-              get.
+              No Today Task Found.{" "}
+              <Link className="link-style-a" to="/dashboard/add-task">
+                Click here to create one.
+              </Link>
             </Blockquote>
           </Center>
         )}

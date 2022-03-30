@@ -30,12 +30,14 @@ export function useStoreUserData({ user }) {
 
   // GET ONLY TODAY TASKS FROM FIREBASE
   const getTodayTask = async () => {
+    console.log("run");
     setTodayTaskLoading(true);
     const q = query(collection(db, "tasks"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const task = doc.data();
       if (user) {
+        console.log(user);
         if (task.userId === user.uid) {
           const today = new Date();
           const taskDate = new Date(task.createdAt.seconds * 1000);
@@ -44,6 +46,8 @@ export function useStoreUserData({ user }) {
             today.getMonth() === taskDate.getMonth()
           ) {
             setTodayTasks((prevState) => [...prevState, task]);
+            setTodayTaskLoading(false);
+          } else {
             setTodayTaskLoading(false);
           }
         }

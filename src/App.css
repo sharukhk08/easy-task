@@ -57,7 +57,12 @@
 
 .link-style a {
   color: #fd7e14;
-  text-decoration: no * +ne;
+  text-decoration: none;
+}
+
+.link-style-a {
+  color: #fd7e14;
+  text-decoration: none;
 }
 
 /* MAIN SECTION  */
