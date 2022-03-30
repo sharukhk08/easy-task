@@ -3,7 +3,7 @@ import { Button, Text } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import React from "react";
 
-const DeleteModal = () => {
+const DeleteModal = ({ deleteTodayTask }) => {
   const modals = useModals();
 
   const openDeleteModal = () =>
@@ -12,14 +12,14 @@ const DeleteModal = () => {
       centered: true,
       children: (
         <Text size="sm">
-          Are you sure you want to delete your profile? This action is
-          destructive and you will have to contact support to restore your data.
+          Are you sure you want to delete this task? This action is destructive
+          and you will have to contact support to restore your data.
         </Text>
       ),
-      labels: { confirm: "Delete account", cancel: "No don't delete it" },
+      labels: { confirm: "Delete Task", cancel: "No don't delete it" },
       confirmProps: { color: "red" },
       onCancel: () => console.log("Cancel"),
-      onConfirm: () => console.log("Confirmed"),
+      onConfirm: () => deleteTodayTask(),
     });
   return (
     <>

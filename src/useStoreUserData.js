@@ -35,7 +35,8 @@ export function useStoreUserData({ user }) {
     const q = query(collection(db, "tasks"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      const task = doc.data();
+      const docId = doc.id;
+      const task = { ...doc.data(), docId };
       if (user) {
         console.log(user);
         if (task.userId === user.uid) {
@@ -61,7 +62,8 @@ export function useStoreUserData({ user }) {
     const q = query(collection(db, "tasks"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      const task = doc.data();
+      const docId = doc.id;
+      const task = { ...doc.data(), docId };
       if (user) {
         if (task.userId === user.uid) {
           setAllTasks((prevState) => [...prevState, task]);
@@ -73,7 +75,21 @@ export function useStoreUserData({ user }) {
     });
   };
 
+  // DELETE TODAY TASKS FROM FIRESTORE
+  const deleteTodayTask = async (id) => {
+    const q = query(collection(db, "tasks"), where("id", "==", id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      doc.ref.delete();
+    });
+
+    const filteredTasks = todayTasks.filter((task) => task.id !== id);
+    setAllTasks(filteredTasks);
+  };
+
   return {
+    deleteTodayTask,
     isAllTaskLoading,
     getAllTask,
     allTasks,

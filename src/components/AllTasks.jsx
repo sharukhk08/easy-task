@@ -20,9 +20,10 @@ const AllTasks = () => {
   const id = "2sfsa4";
   const { user } = useUserAuthProvider();
 
-  const { getAllTask, allTasks, isAllTaskLoading } = useStoreUserData({
-    user,
-  });
+  const { getAllTask, allTasks, isAllTaskLoading, deleteTodayTask } =
+    useStoreUserData({
+      user,
+    });
 
   useEffect(() => {
     getAllTask();
@@ -40,12 +41,13 @@ const AllTasks = () => {
 
   const rows = allTasks.map((element, index) => (
     <tr key={index}>
+      {console.log(element)}
       <td>{element.projectName}</td>
       <td>{element.hours}</td>
       <td>{element.description}</td>
       <td>{new Date(element.time.seconds * 1000).toDateString()}</td>
       <td>
-        <DeleteModal />
+        <DeleteModal deleteTodayTask={deleteTodayTask} />
 
         <span className="mx-5" onClick={() => navigate(`/dashboard/${id}`)}>
           <Eye />
