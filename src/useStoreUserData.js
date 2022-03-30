@@ -66,6 +66,8 @@ export function useStoreUserData({ user }) {
         if (task.userId === user.uid) {
           setAllTasks((prevState) => [...prevState, task]);
           setAllTaskLoading(false);
+        } else {
+          setAllTaskLoading(false);
         }
       }
     });
