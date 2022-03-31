@@ -22,6 +22,11 @@ export const easytasksService = {
     return await getDoc(userdetails);
   },
 
+  updateUserDetails: async (id, updateuser) => {
+    const userDoc = doc(db, "users", id);
+    return await updateDoc(userDoc, updateuser);
+  },
+
   addTask: async (newTask) => {
     return await addDoc(tasksRef, newTask);
   },
@@ -29,6 +34,11 @@ export const easytasksService = {
   deleteTask: async (id) => {
     const taskDoc = doc(db, "tasks", id);
     return await deleteDoc(taskDoc);
+  },
+
+  updateTask: async (id, update) => {
+    const taskDoc = doc(db, "tasks", id);
+    return await updateDoc(taskDoc, update);
   },
 
   //   getAllCollections: async () => {

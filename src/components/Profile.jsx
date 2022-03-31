@@ -18,37 +18,68 @@ import { Logout } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 import { useStoreUserData } from "../useStoreUserData";
+import { easytasksService } from "../easytask.service";
+import { useNotifications } from "@mantine/notifications";
 
 const schema = z.object({
   name: z.string().min(2, { message: "Name should have at least 2 letters" }),
-  email: z.string().email({ message: "Invalid email" }),
+  email: z.string(),
   password: z
     .string()
     .min(8, { message: "Password should have at least 8 letters!" }),
 });
 const Profile = () => {
   const { user, logout } = useUserAuthProvider();
+  const notifications = useNotifications();
 
   const { userDetails } = useStoreUserData({
     user,
   });
 
-  console.log(userDetails);
   const [isLoading, setLoading] = React.useState(false);
+  const [isProfileUpdate, setProfileUpdate] = React.useState(false);
   const form = useForm({
     schema: zodResolver(schema),
     initialValues: {
-      name: userDetails && userDetails.name,
-      email: userDetails && userDetails.email,
-      password: userDetails && userDetails.password,
-      profession: userDetails && userDetails.profession,
+      name: "",
+      email: userDetails ? userDetails.email.toString() : "",
+      password: "",
+      profession: "",
     },
   });
-  const handleSubmit = async (values) => {
-    setLoading(true);
-  };
+
   const theme = useMantineTheme();
   const navigate = useNavigate();
+  console.log(userDetails);
+  const handleUpdateProfile = async (values) => {
+    setLoading(true);
+    const updateduserDetailsData = {
+      email: userDetails.email,
+      password: userDetails.password,
+      name: userDetails.name,
+      profession: values.profession,
+    };
+    await easytasksService.updateUserDetails(
+      userDetails._id,
+      updateduserDetailsData
+    );
+    setLoading(false);
+    notifications.showNotification({
+      color: "#fd7e14",
+      title: "Profile Updated Successfully",
+      message: "click to close",
+      autoClose: true,
+    });
+    setProfileUpdate(false);
+  };
+
+  const { name, profession } =
+    userDetails && userDetails
+      ? userDetails
+      : { name: "easy Task", email: "easytask@gmail.com" };
+  const splitNameBySpace = name ? name.split(" ") : "";
+  const firstChar = splitNameBySpace ? splitNameBySpace[0].charAt(0) : "";
+  const SecondChar = splitNameBySpace ? splitNameBySpace[1].charAt(0) : "";
 
   return (
     <>
@@ -56,7 +87,8 @@ const Profile = () => {
         <Group position="apart" align="start">
           <Group>
             <Avatar color="#FF922B" radius={60} size={120}>
-              SK
+              {firstChar}
+              {SecondChar}
             </Avatar>
             <Group direction="column">
               <Title
@@ -70,7 +102,7 @@ const Profile = () => {
                 }}
                 order={1}
               >
-                Sharukh khan
+                {name}
               </Title>
               <Text
                 sx={{
@@ -82,7 +114,7 @@ const Profile = () => {
                   fontSize: 20,
                 }}
               >
-                Front End Developer
+                {profession}
               </Text>{" "}
             </Group>
           </Group>
@@ -99,50 +131,111 @@ const Profile = () => {
           </Menu>
         </Group>
 
-        <Box>
-          <form
-            className="mt-20"
-            onSubmit={form.onSubmit((values) => handleSubmit(values))}
-          >
-            <TextInput
-              required
-              label="Email"
-              disabled
-              placeholder={userDetails && userDetails.email}
-              width="100%"
-              {...form.getInputProps("email")}
-            />
-            <TextInput
-              required
-              label="Name"
-              placeholder={userDetails && userDetails.name}
-              mt="sm"
-              {...form.getInputProps("name")}
-            />
-            <TextInput
-              required
-              label="Profession"
-              placeholder={userDetails && userDetails.profession}
-              mt="sm"
-              {...form.getInputProps("profession")}
-            />
-            {/* input for password  */}
-            <TextInput
-              required
-              label="Password"
-              placeholder={userDetails && userDetails.password}
-              mt="sm"
-              type="password"
-              {...form.getInputProps("password")}
-            />
+        {isProfileUpdate ? (
+          <Box>
+            <form
+              className="mt-20"
+              onSubmit={form.onSubmit((values) => handleUpdateProfile(values))}
+            >
+              <TextInput
+                required
+                label="Email"
+                disabled
+                width="100%"
+                {...form.getInputProps("email")}
+                placeholder="You can't change your email"
+              />
+              <TextInput
+                required
+                label="Name"
+                mt="sm"
+                value={userDetails && userDetails.name}
+                {...form.getInputProps("name")}
+              />
+              <TextInput
+                required
+                label="Profession"
+                mt="sm"
+                value={userDetails && userDetails.profession}
+                {...form.getInputProps("profession")}
+              />
+              {/* input for password  */}
+              <TextInput
+                required
+                label="Password"
+                mt="sm"
+                type="password"
+                value={userDetails && userDetails.password}
+                {...form.getInputProps("password")}
+              />
 
-            <Group position="right" mt="xl">
-              <Button type="submit" radius={3}>
-                {isLoading ? <Loader color="white" variant="dots" /> : "Update"}{" "}
-              </Button>
-            </Group>
-          </form>
-        </Box>
+              <Group position="right" mt="xl">
+                <Button type="submit" radius={3}>
+                  {isLoading ? (
+                    <Loader color="white" variant="dots" />
+                  ) : (
+                    "Update"
+                  )}
+                </Button>
+                <Button radius={3} onClick={() => setProfileUpdate(false)}>
+                  Go Back
+                </Button>
+              </Group>
+            </form>
+          </Box>
+        ) : (
+          <Box>
+            <form
+              className="mt-20"
+              onSubmit={form.onSubmit((values) => handleUpdateProfile(values))}
+            >
+              <TextInput
+                required
+                label="Email"
+                disabled
+                width="100%"
+                {...form.getInputProps("email")}
+                placeholder={userDetails && userDetails.email}
+              />
+              <TextInput
+                required
+                label="Name"
+                disabled
+                mt="sm"
+                {...form.getInputProps("name")}
+                placeholder={userDetails && userDetails.name}
+              />
+              <TextInput
+                required
+                label="Profession"
+                disabled
+                mt="sm"
+                {...form.getInputProps("profession")}
+                placeholder={userDetails && userDetails.profession}
+              />
+              {/* input for password  */}
+              <TextInput
+                required
+                label="Password"
+                disabled
+                mt="sm"
+                type="password"
+                {...form.getInputProps("password")}
+                placeholder={userDetails && userDetails.password}
+              />
+
+              <Group position="right" mt="xl">
+                <Button
+                  mt="xl"
+                  radius={3}
+                  onClick={() => setProfileUpdate(true)}
+                >
+                  Click here to update your profile
+                </Button>
+              </Group>
+            </form>
+          </Box>
+        )}
       </Container>
     </>
   );

@@ -21,7 +21,8 @@ export function useStoreUserData({ user }) {
         );
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-          setUserDetails(doc.data());
+          const userId = doc.id;
+          setUserDetails({ ...doc.data(), _id: userId });
           setLoading(false);
         });
       }
