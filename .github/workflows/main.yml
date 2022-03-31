@@ -36,6 +36,41 @@ jobs:
           echo test, and deploy your project.
       #setup github work flow with firbase ci
       - name: Setup github work flow with firbase ci
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        run: npm install -g firebase-tools
+        env:
+          GITHUB_TOKEN: $GITHUB_TOKEN
+          GITHUB_WORKSPACE: $GITHUB_WORKSPACE
+          GITHUB_REPOSITORY: $GITHUB_REPOSITORY
+          GITHUB_SHA: $GITHUB_SHA
+          GITHUB_REF: $GITHUB_REF
+          GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME
+          GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH
+          GITHUB_ACTION: $GITHUB_ACTION
+          GITHUB_ACTOR: $GITHUB_ACTOR
+          GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH
+          GITHUB_WORKSPACE: $GITHUB_WORKSPACE
+          GITHUB_REPOSITORY: $GITHUB_REPOSITORY
+          GITHUB_SHA: $GITHUB_SHA
+          GITHUB_REF: $GITHUB_REF
+          GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME
+          GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH
+          GITHUB_ACTION: $GITHUB_ACTION
+          GITHUB_ACTOR: $GITHUB_ACTOR
+          GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH
+          GITHUB_WORKSPACE: $GITHUB_WORKSPACE
+          GITHUB_REPOSITORY: $GITHUB_REPOSITORY
+          GITHUB_SHA: $GITHUB_SHA
+          GITHUB_REF: $GITHUB_REF
+          GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME
+          GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH
+          GITHUB_ACTION: $GITHUB_ACTION
+          GITHUB_ACTOR: $GITHUB_ACTOR
+          GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH
+          GITHUB_WORKSPACE: $G
+
+      # Runs a command using the runners shell and outputs the result to a file
+      - name: Run a one-line script and save output to a file
+        run: echo Hello, world! > output.txt
+        outputs:
+          - name: output_file
+            path: output.txt
