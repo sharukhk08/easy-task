@@ -38,3 +38,4 @@ jobs:
       - name: Setup github work flow with firbase ci
         run: npm install -g firebase-tools
           npm run build
+          firebase deploy
