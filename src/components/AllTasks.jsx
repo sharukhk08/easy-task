@@ -17,7 +17,6 @@ import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 const AllTasks = () => {
   const theme = useMantineTheme();
   const navigate = useNavigate();
-  const id = "2sfsa4";
   const { user } = useUserAuthProvider();
 
   const { getAllTask, allTasks, isAllTaskLoading, deleteTodayTask } =
