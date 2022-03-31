@@ -36,7 +36,7 @@ jobs:
           echo test, and deploy your project.
       #setup github work flow with firbase ci
       - name: Setup github work flow with firbase ci
-        run:  npm run build
+        run: npm run build
       - name: Deploy firbase ci
-        run: firebase login 
-        run: firebase deploy --token $FIREBASE_TOKEN --project $FIREBASE_PROJECT --only hosting
+        run: firebase login
+          firebase deploy --token $FIREBASE_TOKEN --project $FIREBASE_PROJECT --only hosting
