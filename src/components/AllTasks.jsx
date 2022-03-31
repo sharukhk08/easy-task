@@ -41,7 +41,6 @@ const AllTasks = () => {
 
   const rows = allTasks.map((element, index) => (
     <tr key={index}>
-      {console.log(element)}
       <td>{element.projectName}</td>
       <td>{element.hours}</td>
       <td>{element.description}</td>
@@ -49,7 +48,10 @@ const AllTasks = () => {
       <td>
         <DeleteModal id={element.docId} deleteTodayTask={deleteTodayTask} />
 
-        <span className="mx-5" onClick={() => navigate(`/dashboard/${id}`)}>
+        <span
+          className="mx-5"
+          onClick={() => navigate(`/dashboard/${element.docId}`)}
+        >
           <Eye />
         </span>
         <span>

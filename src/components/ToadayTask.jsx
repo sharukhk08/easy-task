@@ -49,8 +49,10 @@ const ToadayTask = () => {
         <td>{new Date(element.time.seconds * 1000).toDateString()}</td>
         <td>
           <DeleteModal />
-          {console.log(element, "getTodayTask")}
-          <span className="mx-5" onClick={() => navigate(`/dashboard/${id}`)}>
+          <span
+            className="mx-5"
+            onClick={() => navigate(`/dashboard/${element.docId}`)}
+          >
             <Eye />
           </span>
           <span onClick={() => navigate("/dashboard/tasks/edit")}>
