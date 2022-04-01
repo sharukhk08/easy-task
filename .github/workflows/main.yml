@@ -28,7 +28,7 @@ jobs:
       - name: Setup github work flow with firbase ci
         run: npm install -g firebase-tools
           npm run build
-      - name: Deploy firbase ci
+      - name: Setup firebase action  
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
@@ -36,3 +36,6 @@ jobs:
           expires: 30d
           projectId: easy-task-008
 
+      # deploy to firebase 
+      - name: Deploy firbase ci
+        run: firebase deploy --only hosting:production
