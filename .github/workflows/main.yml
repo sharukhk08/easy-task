@@ -24,20 +24,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
       #setup github work flow with firbase ci
       - name: Setup github work flow with firbase ci
         run: npm install -g firebase-tools
           npm run build
       - name: Deploy firbase ci
         run: firebase login
-          firebase deploy --token $FIREBASE_TOKEN --project $FIREBASE_PROJECT --only hosting
+          firebase deploy
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_EASY_TASK_008 }}"
+          expires: 30d
+          projectId: easy-task-008
+
