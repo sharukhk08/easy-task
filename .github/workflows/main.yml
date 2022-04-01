@@ -29,9 +29,6 @@ jobs:
         run: npm install -g firebase-tools
           npm run build
       - name: Deploy firbase ci
-        run: firebase login
-          firebase deploy
-
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
