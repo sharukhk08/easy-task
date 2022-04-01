@@ -35,7 +35,11 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_EASY_TASK_008 }}"
           expires: 30d
           projectId: easy-task-008
-
-      # deploy to firebase 
-      - name: Deploy firbase ci
         run: firebase deploy --only hosting:production
+
+      # Runs the tests
+      - name: Run tests
+        run: npm run test
+      # Runs the build
+      - name: Run build
+        run: npm run build
