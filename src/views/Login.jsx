@@ -100,7 +100,7 @@ function Login() {
                 }}
                 order={1}
               >
-                Login To check CI||CD
+                Login To Easy Task
               </Title>
               <TextInput
                 required
