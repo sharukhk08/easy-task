@@ -1,5 +1,5 @@
-import { Eye, Trash, Pencil } from "tabler-icons-react";
-import { Button, Text } from "@mantine/core";
+import {  Trash } from "tabler-icons-react";
+import {  Text } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import React from "react";
 

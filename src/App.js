@@ -49,7 +49,7 @@ function App() {
         colorScheme: "dark",
       });
     }
-  }, []);
+  }, [colorScheme, value]);
 
   return (
     <ColorSchemeProvider
