@@ -100,7 +100,7 @@ function Login() {
                 }}
                 order={1}
               >
-                Login To Easy Task
+                Login To Easy
               </Title>
               <TextInput
                 required
