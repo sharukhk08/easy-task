@@ -11,7 +11,8 @@ import { Table } from "@mantine/core";
 import { Eye, Pencil } from "tabler-icons-react";
 import DeleteModal from "./common/DeleteModal";
 import { useNavigate } from "react-router-dom";
-
+import { collection, query, getDocs } from "firebase/firestore";
+import { db } from "../firebase-config";
 import { useStoreUserData } from "../useStoreUserData";
 import { useUserAuthProvider } from "../contexts/UserAuthProvider";
 const AllTasks = () => {
@@ -19,14 +20,37 @@ const AllTasks = () => {
   const navigate = useNavigate();
   const { user } = useUserAuthProvider();
 
-  const { getAllTask, allTasks, isAllTaskLoading, deleteTodayTask } =
-    useStoreUserData({
-      user,
-    });
-
+  const {
+    setAllTasks,
+    allTasks,
+    isAllTaskLoading,
+    setAllTaskLoading,
+    deleteTodayTask,
+  } = useStoreUserData({
+    user,
+  });
   useEffect(() => {
+    // GET ONLY TODAY TASKS FROM FIREBASE
+    const getAllTask = async () => {
+      setAllTaskLoading(true);
+      const q = query(collection(db, "tasks"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const docId = doc.id;
+        const task = { ...doc.data(), docId };
+        if (user) {
+          if (task.userId === user.uid) {
+            setAllTasks((prevState) => [...prevState, task]);
+            setAllTaskLoading(false);
+          } else {
+            setAllTaskLoading(false);
+          }
+        }
+      });
+    };
+
     getAllTask();
-  }, []);
+  }, [user, setAllTaskLoading, setAllTasks]);
 
   const ths = (
     <tr>

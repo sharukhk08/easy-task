@@ -28,54 +28,7 @@ export function useStoreUserData({ user }) {
       }
     };
     getData();
-  }, []);
-
-  // GET ONLY TODAY TASKS FROM FIREBASE
-  const getTodayTask = async () => {
-    console.log("run");
-    setTodayTaskLoading(true);
-    const q = query(collection(db, "tasks"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const docId = doc.id;
-      const task = { ...doc.data(), docId };
-      if (user) {
-        console.log(user);
-        if (task.userId === user.uid) {
-          const today = new Date();
-          const taskDate = new Date(task.createdAt.seconds * 1000);
-          if (
-            today.getDate() === taskDate.getDate() &&
-            today.getMonth() === taskDate.getMonth()
-          ) {
-            setTodayTasks((prevState) => [...prevState, task]);
-            setTodayTaskLoading(false);
-          } else {
-            setTodayTaskLoading(false);
-          }
-        }
-      }
-    });
-  };
-
-  // GET ONLY TODAY TASKS FROM FIREBASE
-  const getAllTask = async () => {
-    setAllTaskLoading(true);
-    const q = query(collection(db, "tasks"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const docId = doc.id;
-      const task = { ...doc.data(), docId };
-      if (user) {
-        if (task.userId === user.uid) {
-          setAllTasks((prevState) => [...prevState, task]);
-          setAllTaskLoading(false);
-        } else {
-          setAllTaskLoading(false);
-        }
-      }
-    });
-  };
+  }, [user]);
 
   // DELETE TODAY TASKS FROM FIRESTORE
   const deleteTodayTask = async (id) => {
@@ -89,13 +42,15 @@ export function useStoreUserData({ user }) {
   };
 
   return {
+    setAllTasks,
     deleteTodayTask,
+    setAllTaskLoading,
     isAllTaskLoading,
-    getAllTask,
     allTasks,
     isTodayTaskLoading,
-    getTodayTask,
+    setTodayTaskLoading,
     todayTasks,
+    setTodayTasks,
     userDetails,
     loading,
   };

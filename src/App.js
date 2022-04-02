@@ -14,6 +14,20 @@ const myTheme = {
 
 function App() {
   const [colorScheme, setColorScheme] = useState(myTheme);
+  const [value, setValue] = useLocalStorage({
+    key: "color-scheme",
+    defaultValue: colorScheme.colorScheme,
+  });
+
+  useEffect(() => {
+    if (value === "light") {
+      setColorScheme((scheme) => ({ ...scheme, colorScheme: "light" }));
+    }
+    if (value === "dark") {
+      setColorScheme((scheme) => ({ ...scheme, colorScheme: "dark" }));
+    }
+  }, [value]);
+
   const toggleColorScheme = () => {
     //  check if color scheme is light or dark
     if (colorScheme.colorScheme === "light") {
@@ -31,25 +45,6 @@ function App() {
       setValue("light");
     }
   };
-  const [value, setValue] = useLocalStorage({
-    key: "color-scheme",
-    defaultValue: colorScheme.colorScheme,
-  });
-
-  useEffect(() => {
-    if (value === "light") {
-      setColorScheme({
-        ...colorScheme,
-        colorScheme: "light",
-      });
-    }
-    if (value === "dark") {
-      setColorScheme({
-        ...colorScheme,
-        colorScheme: "dark",
-      });
-    }
-  }, [colorScheme, value]);
 
   return (
     <ColorSchemeProvider
