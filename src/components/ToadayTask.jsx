@@ -13,19 +13,50 @@ import DeleteModal from "./common/DeleteModal";
 import { Link, useNavigate } from "react-router-dom";
 import { useStoreUserData } from "../useStoreUserData";
 import { useUserAuthProvider } from "../contexts/UserAuthProvider";
+import { collection, query, getDocs } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 const ToadayTask = () => {
   const theme = useMantineTheme();
   const navigate = useNavigate();
   const { user } = useUserAuthProvider();
 
-  const { getTodayTask, todayTasks, isTodayTaskLoading } = useStoreUserData({
-    user,
-  });
+  const { setTodayTasks, setTodayTaskLoading, todayTasks, isTodayTaskLoading } =
+    useStoreUserData({
+      user,
+    });
 
   useEffect(() => {
+    // GET ONLY TODAY TASKS FROM FIREBASE
+    const getTodayTask = async () => {
+      console.log("run");
+      setTodayTaskLoading(true);
+      const q = query(collection(db, "tasks"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const docId = doc.id;
+        const task = { ...doc.data(), docId };
+        if (user) {
+          console.log(user);
+          if (task.userId === user.uid) {
+            const today = new Date();
+            const taskDate = new Date(task.createdAt.seconds * 1000);
+            if (
+              today.getDate() === taskDate.getDate() &&
+              today.getMonth() === taskDate.getMonth()
+            ) {
+              setTodayTasks((prevState) => [...prevState, task]);
+              setTodayTaskLoading(false);
+            } else {
+              setTodayTaskLoading(false);
+            }
+          }
+        }
+      });
+    };
+
     getTodayTask();
-  }, [user]);
+  }, [user, setTodayTaskLoading, setTodayTasks]);
 
   const ths = (
     <tr>
