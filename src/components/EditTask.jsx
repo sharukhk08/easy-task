@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AddTask from "./AddTask";
 import { db } from "../firebase-config";
 import { getDoc, doc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
@@ -30,13 +29,17 @@ const schema = z.object({
 const EditTask = () => {
   const [taskDetails, setTaskDetails] = useState({});
   const [isLoading, setLoading] = useState(false);
-
   const { time } = taskDetails ? taskDetails : "";
-  const { seconds } = time ? time : "";
-  console.log(new Date());
-  console.log(new Date(seconds * 1000).toDateString(), "second");
+  // const { seconds } = time ? time : "";
   const [timeValue, onChange] = useState(new Date());
 
+  console.log(new Date(), "new Date()");
+  console.log(
+    new Date(time && time.toDate()).toDateString(),
+    "new Date().getTimezoneOffset()"
+  );
+
+  console.log(new Date(time && time.toDate()).toLocaleTimeString());
   console.log(taskDetails);
   let params = useParams();
   const theme = useMantineTheme();
@@ -70,13 +73,17 @@ const EditTask = () => {
       }
     };
     getCollection();
-
-    form.setValues({
-      projectName: taskDetails.projectName,
-      hours: taskDetails.hours,
-      description: taskDetails.description,
-    });
   }, [params.taskId]);
+
+  useEffect(() => {
+    if (taskDetails) {
+      form.setValues({
+        projectName: taskDetails.projectName,
+        hours: taskDetails.hours,
+        description: taskDetails.description,
+      });
+    }
+  }, [taskDetails, form]);
 
   const handleUpdate = async (values) => {
     if (
@@ -94,17 +101,18 @@ const EditTask = () => {
       hours: values.hours,
       description: values.description,
       time: timeValue,
-      createdAt: new Date(),
+      createdAt: taskDetails.createdAt,
+      updatedAt: new Date(),
       userId: user.uid,
     };
 
     try {
       setLoading(true);
-      await easytasksService.addTask(tasksData);
+      await easytasksService.updateTask(params.taskId, tasksData);
       setLoading(false);
       notifications.showNotification({
         color: "#fd7e14",
-        title: "Task added successfully",
+        title: "Task updated successfully",
         message: "click to close",
         autoClose: true,
       });
@@ -115,7 +123,7 @@ const EditTask = () => {
       console.log("catch", error);
       notifications.showNotification({
         color: "#fd7e14",
-        title: "Failed to add task",
+        title: "Failed to update task",
         message: "click to close",
         autoClose: true,
       });
