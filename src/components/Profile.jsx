@@ -50,7 +50,7 @@ const Profile = () => {
 
   const theme = useMantineTheme();
   const navigate = useNavigate();
-  console.log(userDetails);
+
   const handleUpdateProfile = async (values) => {
     setLoading(true);
     const updateduserDetailsData = {

@@ -85,7 +85,9 @@ const ToadayTask = () => {
           >
             <Eye />
           </span>
-          <span onClick={() => navigate("/dashboard/tasks/edit")}>
+          <span
+            onClick={() => navigate(`/dashboard/tasks/edit/${element.docId}`)}
+          >
             <Pencil />
           </span>
         </td>

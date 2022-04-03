@@ -77,7 +77,9 @@ const AllTasks = () => {
         >
           <Eye />
         </span>
-        <span>
+        <span
+          onClick={() => navigate(`/dashboard/tasks/edit/${element.docId}`)}
+        >
           <Pencil />
         </span>
       </td>

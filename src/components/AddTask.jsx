@@ -23,14 +23,13 @@ const schema = z.object({
   description: z.string(),
 });
 
-const AddTask = ({ heading }) => {
+const AddTask = () => {
   const [isLoading, setLoading] = useState(false);
   const [timeValue, onChange] = useState(new Date());
 
   const theme = useMantineTheme();
   const notifications = useNotifications();
-   const { user } = useUserAuthProvider();
-
+  const { user } = useUserAuthProvider();
 
   const form = useForm({
     schema: zodResolver(schema),
@@ -57,8 +56,8 @@ const AddTask = ({ heading }) => {
       hours: values.hours,
       description: values.description,
       time: timeValue,
-      createdAt : new Date(),
-      userId : user.uid,
+      createdAt: new Date(),
+      userId: user.uid,
     };
 
     try {
@@ -101,7 +100,7 @@ const AddTask = ({ heading }) => {
             }}
             order={1}
           >
-            {heading ? heading : "Add Your Daily Tasks"}
+            Add Your Daily Tasks
           </Title>
           <TextInput
             required
@@ -138,11 +137,7 @@ const AddTask = ({ heading }) => {
           />
           <Group position="right" mt="xl">
             <Button type="submit" radius={3}>
-              {isLoading ? (
-                <Loader color="white" variant="dots" />
-              ) : (
-                "Add Task"
-              )}
+              {isLoading ? <Loader color="white" variant="dots" /> : "Add Task"}
             </Button>
           </Group>
         </form>
